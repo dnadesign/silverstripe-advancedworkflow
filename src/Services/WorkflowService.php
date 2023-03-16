@@ -125,9 +125,7 @@ class WorkflowService implements PermissionProvider
         ) {
             // Validate the workflow ID against the data object.
 
-            if (($object->WorkflowDefinitionID == $workflowID)
-                || ($workflow = $object->AdditionalWorkflowDefinitions()->byID($workflowID))
-            ) {
+            if (($object->WorkflowDefinitionID == $workflowID)) {
                 if (is_null($workflow)) {
                     $workflow = DataObject::get_by_id(WorkflowDefinition::class, $workflowID);
                 }
@@ -146,17 +144,11 @@ class WorkflowService implements PermissionProvider
 
     public function getDefinitionsFor($object)
     {
-
         // Retrieve the main workflow definition.
-
-        $default = $this->getDefinitionFor($object);
-        if ($default) {
-            // Merge the additional workflow definitions.
-
-            return array_merge(array(
-                $default
-            ), $object->AdditionalWorkflowDefinitions()->toArray());
+        if ($default = $this->getDefinitionFor($object)) {
+            return $default;
         }
+
         return null;
     }
 
