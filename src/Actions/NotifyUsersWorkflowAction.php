@@ -134,11 +134,11 @@ class NotifyUsersWorkflowAction extends WorkflowAction
             ]);
         }
 
-
         $view = SSViewer::fromString($this->EmailTemplate);
         $this->extend('updateView', $view);
 
         foreach ($members as $member) {
+
             if ($member->Email) {
                 // We bind in the assignee at this point, as it changes each loop iteration
                 $assigneeVars = $this->getMemberFields($member);

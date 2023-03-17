@@ -6,7 +6,6 @@ use SilverStripe\Dev\BuildTask;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\ORM\FieldType\DBDatetime;
-use Symbiote\AdvancedWorkflow\DataObjects\WorkflowDefinition;
 use Symbiote\AdvancedWorkflow\DataObjects\WorkflowInstance;
 
 /**
@@ -42,7 +41,6 @@ class WorkflowReminderTask extends BuildTask
                     }
 
                     $email   = new Email();
-                    $bcc     = '';
                     $members = $instance->getAssignedMembers();
                     $target  = $instance->getTarget();
 

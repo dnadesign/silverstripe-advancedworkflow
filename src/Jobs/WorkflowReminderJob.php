@@ -6,9 +6,10 @@ use Exception;
 use Psr\Log\LoggerInterface;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Email\Email;
-use Symbiote\AdvancedWorkflow\DataObjects\WorkflowInstance;
-use Symbiote\QueuedJobs\Services\AbstractQueuedJob;
+use SilverStripe\Core\Injector\Injector;
 use Symbiote\QueuedJobs\Services\QueuedJobService;
+use Symbiote\QueuedJobs\Services\AbstractQueuedJob;
+use Symbiote\AdvancedWorkflow\DataObjects\WorkflowInstance;
 
 if (!class_exists(AbstractQueuedJob::class)) {
     return;
@@ -81,18 +82,18 @@ class WorkflowReminderJob extends AbstractQueuedJob
 
             $email->setSubject("Workflow Reminder: $instance->Title");
             $email->setBcc(implode(', ', $members->column('Email')));
-            $email->setHTMLTemplate('WorkflowReminderEmail');
+            $email->setHTMLTemplate('email\\WorkflowReminderEmail');
             $email->setData(array(
                 'Instance' => $instance,
                 'Link'     => $target instanceof SiteTree ? "admin/show/$target->ID" : ''
             ));
-            
+
             try {
                 $email->send();
             } catch (Exception $ex) {
                 Injector::inst()->get(LoggerInterface::class)->warning($ex->getMessage());
             }
-            
+
             $sent++;
 
             // add a comment to the workflow if possible

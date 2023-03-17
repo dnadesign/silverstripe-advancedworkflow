@@ -1,0 +1,37 @@
+---
+Name: workflowpageconfig
+After: coreconfig
+---
+Symbiote\AdvancedWorkflow\Admin\AdvancedWorkflowAdmin:
+  fieldOverrides:
+    Title: 'Title'
+    LastEdited: 'Changed'
+    WorkflowTitle: 'Effective workflow'
+    WorkflowStatus: 'Current action'
+    IsUrgent: 'Is Urgent'
+    ChangeLevel: 'Change Level'
+
+Symbiote\AdvancedWorkflow\Services\WorkflowService:
+  extensions:
+    - Symbiote\AdvancedWorkflow\Extensions\WorkflowService_UrgencyExtension
+
+Symbiote\AdvancedWorkflow\DataObjects\WorkflowInstance:
+  extensions:
+    - Symbiote\AdvancedWorkflow\Extensions\WorkflowInstance_UrgencyExtension
+
+Symbiote\AdvancedWorkflow\DataObjects\WorkflowActionInstance:
+  extensions:
+    - Symbiote\AdvancedWorkflow\Extensions\WorkflowActionInstance_UrgencyExtension
+
+Symbiote\AdvancedWorkflow\DataObjects\WorkflowAction:
+  extensions:
+    - Symbiote\AdvancedWorkflow\Extensions\WorkflowAction_CancelExtension
+
+Page:
+  extensions:
+    - Symbiote\AdvancedWorkflow\Extensions\WorkflowApplicable
+    - Symbiote\AdvancedWorkflow\Extensions\Page_CancelActiveWorkflowExtension
+
+SilverStripe\CMS\Controllers\CMSPageEditController:
+  extensions:
+    - Symbiote\AdvancedWorkflow\Extensions\CMSPage_AdvancedWorkflowCancelExtension

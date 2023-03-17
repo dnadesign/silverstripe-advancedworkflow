@@ -1,0 +1,58 @@
+---
+Name: app-workflow
+After: workflowconfig
+---
+
+SilverStripe\Core\Injector\Injector:
+  WNZWorkflow:
+    class: Symbiote\AdvancedWorkflow\Templates\WorkflowTemplate
+    constructor:
+      - 'WNZ workflow'
+      - 'Single step review and approve. Make sure to update the Apply for approval and "Notify" steps!'
+      - 1.0.0
+    properties:
+      structure:
+        'Describe changes':
+          type: Symbiote\AdvancedWorkflow\Actions\AssignUsersToWorkflowAction
+          transitions:
+            Apply: 'Apply for approval'
+            'Cancel': 'Cancel request'
+        'Apply for approval':
+          type: Symbiote\AdvancedWorkflow\Actions\AssignUsersToWorkflowAction
+          transitions:
+            notify: 'Notify users'
+        'Notify users':
+          type: Symbiote\AdvancedWorkflow\Actions\NotifyUsersWorkflowAction
+          transitions:
+            approval: Approval
+        Approval:
+          type: Symbiote\AdvancedWorkflow\Actions\SimpleApprovalWorkflowAction
+          transitions:
+            Approved: Publish
+            Rejected: 'Reject changes'
+        Publish:
+          type: Symbiote\AdvancedWorkflow\Actions\PublishItemWorkflowAction
+          transitions:
+            assign: 'Assign Initiator Publish'
+        'Assign Initiator Publish':
+          type: Symbiote\AdvancedWorkflow\Actions\AssignUsersToWorkflowAction
+          transitions:
+            notify: 'Notify Initiator Publish'
+        'Notify Initiator Publish':
+          type: Symbiote\AdvancedWorkflow\Actions\NotifyUsersWorkflowAction
+        'Reject changes':
+          type: Symbiote\AdvancedWorkflow\Actions\CancelWorkflowAction
+          transitions:
+            assign: 'Assign Initiator Cancel'
+        'Assign Initiator Cancel':
+          type: Symbiote\AdvancedWorkflow\Actions\AssignUsersToWorkflowAction
+          transitions:
+            notify: 'Notify Initiator Cancel'
+        'Notify Initiator Cancel':
+          type: Symbiote\AdvancedWorkflow\Actions\NotifyUsersWorkflowAction
+        'Cancel request':
+          type: Symbiote\AdvancedWorkflow\Actions\CancelWorkflowAction
+  Symbiote\AdvancedWorkflow\Services\WorkflowService:
+    properties:
+      templates:
+        - '%$WNZWorkflow'

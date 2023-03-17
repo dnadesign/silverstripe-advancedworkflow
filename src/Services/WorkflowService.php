@@ -3,7 +3,6 @@
 namespace Symbiote\AdvancedWorkflow\Services;
 
 use Exception;
-use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Convert;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
