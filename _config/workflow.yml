@@ -4,10 +4,10 @@ After: workflowconfig
 ---
 
 SilverStripe\Core\Injector\Injector:
-  WNZWorkflow:
+  SimpleWorkflow:
     class: Symbiote\AdvancedWorkflow\Templates\WorkflowTemplate
     constructor:
-      - 'WNZ workflow'
+      - 'Simple workflow'
       - 'Single step review and approve. Make sure to update the Apply for approval and "Notify" steps!'
       - 1.0.0
     properties:
@@ -55,4 +55,4 @@ SilverStripe\Core\Injector\Injector:
   Symbiote\AdvancedWorkflow\Services\WorkflowService:
     properties:
       templates:
-        - '%$WNZWorkflow'
+        - '%$SimpleWorkflow'
