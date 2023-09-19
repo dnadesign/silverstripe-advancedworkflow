@@ -1,0 +1,55 @@
+de_DE:
+  AdvancedWorkflowAdmin:
+    Title: Titel
+  AllowEditing:
+    NoString: Nein
+  AssignUsersToWorkflowAction:
+    GROUPS: Grouppen
+  NotifyUsersWorkflowAction:
+    EMAILSUBJECT: Betreff
+    EMAILTEMPLATE: E-Mail-Template
+  Symbiote\AdvancedWorkflow\Actions\AssignUsersToWorkflowAction:
+    many_many_Groups: Grouppen
+  Symbiote\AdvancedWorkflow\Actions\NotifyUsersWorkflowAction:
+    db_EmailSubject: Betreff
+    db_EmailTemplate: E-Mail-Template
+  Symbiote\AdvancedWorkflow\Actions\SetPropertyWorkflowAction:
+    db_Value: Wert
+  Symbiote\AdvancedWorkflow\DataObjects\ImportedWorkflowTemplate:
+    db_Name: Name
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowAction:
+    db_Title: Titel
+    db_Type: Typ
+    has_one_Member: Mitglied
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowActionInstance:
+    has_one_Member: Mitglied
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowDefinition:
+    db_Description: Beschreibung
+    db_Title: Titel
+    many_many_Groups: Grouppen
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowInstance:
+    db_Title: Titel
+    many_many_Groups: Grouppen
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowTransition:
+    db_Title: Titel
+    db_Type: Typ
+    many_many_Groups: Grouppen
+  WorkflowAction:
+    TITLE: Titel
+    TypeLabel: Typ
+  WorkflowActionInstance:
+    Title: Titel
+  WorkflowDefinition:
+    DESCRIPTION: Beschreibung
+    TITLE: Titel
+  WorkflowField:
+    DeleteAction: Löschen
+    EditAction: Bearbeiten
+  WorkflowInstance:
+    TitleLabel: Titel
+  WorkflowReminderEmail:
+    HeadingTitle: Titel
+  WorkflowReminderTask:
+    SAVE: Speichern
+  WorkflowTransition:
+    TYPE: Typ

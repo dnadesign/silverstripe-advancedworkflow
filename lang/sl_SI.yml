@@ -1,1 +1,54 @@
-sl_SI: {  }
+sl_SI:
+  AdvancedWorkflowAdmin:
+    Title: Naslov
+  AllowEditing:
+    NoString: Ne
+  AssignUsersToWorkflowAction:
+    GROUPS: Grupe
+    USERS: Uporabniki
+  NotifyUsersWorkflowAction:
+    EMAILSUBJECT: 'Predmet e-pošte'
+  Symbiote\AdvancedWorkflow\Actions\AssignUsersToWorkflowAction:
+    many_many_Groups: Grupe
+    many_many_Users: Uporabniki
+  Symbiote\AdvancedWorkflow\Actions\NotifyUsersWorkflowAction:
+    db_EmailSubject: 'Predmet e-pošte'
+  Symbiote\AdvancedWorkflow\DataObjects\ImportedWorkflowTemplate:
+    db_Content: Vsebina
+    db_Filename: 'Ime datoteke'
+    db_Name: Ime
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowAction:
+    db_Title: Naslov
+    has_one_Member: Uporabnik
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowActionInstance:
+    has_one_Member: Uporabnik
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowDefinition:
+    db_Description: Opis
+    db_Title: Naslov
+    many_many_Groups: Grupe
+    many_many_Users: Uporabniki
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowInstance:
+    db_Title: Naslov
+    many_many_Groups: Grupe
+    many_many_Users: Uporabniki
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowTransition:
+    db_Title: Naslov
+    many_many_Groups: Grupe
+    many_many_Users: Uporabniki
+  WorkflowAction:
+    TITLE: Naslov
+  WorkflowActionInstance:
+    Title: Naslov
+  WorkflowDefinition:
+    DESCRIPTION: Opis
+    TITLE: Naslov
+  WorkflowField:
+    CreateLabel: Ustvari
+    DeleteAction: Izbriši
+    EditAction: Uredi
+  WorkflowInstance:
+    TitleLabel: Naslov
+  WorkflowReminderEmail:
+    HeadingTitle: Naslov
+  WorkflowReminderTask:
+    SAVE: Shrani

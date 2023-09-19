@@ -12,9 +12,42 @@ fi_FI:
     Title: Otsikko
   AllowEditing:
     NoString: Ei
+  AssignUsersToWorkflowAction:
+    GROUPS: Ryhmät
   NotifyUsersWorkflowAction:
-    EMAILTEMPLATE: Sähköpostipohja
     EMAILSUBJECT: Otsikko
+    EMAILTEMPLATE: Sähköpostipohja
+  Symbiote\AdvancedWorkflow\Actions\AssignUsersToWorkflowAction:
+    many_many_Groups: Ryhmät
+  Symbiote\AdvancedWorkflow\Actions\NotifyUsersWorkflowAction:
+    PLURALNAME: 'Informoi käyttäjiä työnkulun toiminnoista'
+    db_EmailSubject: Otsikko
+    db_EmailTemplate: Sähköpostipohja
+  Symbiote\AdvancedWorkflow\Actions\SetPropertyWorkflowAction:
+    db_Value: Arvo
+  Symbiote\AdvancedWorkflow\DataObjects\ImportedWorkflowTemplate:
+    db_Content: Sisältö
+    db_Name: Nimi
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowAction:
+    db_Title: Otsikko
+    db_Type: Tyyppi
+    has_one_Member: Käyttäjä
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowActionInstance:
+    db_Finished: Valmistunut
+    has_one_Member: Käyttäjä
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowDefinition:
+    db_Description: Kuvaus
+    db_Title: Otsikko
+    has_many_Actions: Toimenpiteet
+    many_many_Groups: Ryhmät
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowInstance:
+    db_Title: Otsikko
+    has_many_Actions: Toimenpiteet
+    many_many_Groups: Ryhmät
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowTransition:
+    db_Title: Otsikko
+    db_Type: Tyyppi
+    many_many_Groups: Ryhmät
   WorkflowAction:
     Author: Tekijä
     FinishedLabel: Valmistunut
@@ -23,8 +56,8 @@ fi_FI:
   WorkflowActionInstance:
     Title: Otsikko
   WorkflowDefinition:
-    TITLE: Otsikko
     DESCRIPTION: Kuvaus
+    TITLE: Otsikko
   WorkflowEmbargoExpiryExtension:
     ActiveWorkflowStateTitle: Aktiivinen
     CompletedWorkflowStateTitle: Valmistunut
@@ -40,6 +73,8 @@ fi_FI:
   WorkflowList:
     TableHeaderActions: Toimenpiteet
     TableHeaderSubmitted: Lähetetty
+  WorkflowReminderEmail:
+    HeadingTitle: Otsikko
   WorkflowReminderTask:
     SAVE: Tallenna
   WorkflowTransition:
@@ -47,9 +82,3 @@ fi_FI:
     NEXT_ACTION: 'Seuraava toimenpide'
     Passive: Passiivinen
     TYPE: Tyyppi
-  AssignUsersToWorkflowAction:
-    GROUPS: Ryhmät
-  Symbiote\AdvancedWorkflow\Actions\NotifyUsersWorkflowAction:
-    PLURALNAME: 'Informoi käyttäjiä työnkulun toiminnoista'
-  WorkflowReminderEmail:
-    HeadingTitle: Otsikko

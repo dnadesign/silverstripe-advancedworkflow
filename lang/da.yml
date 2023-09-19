@@ -1,1 +1,50 @@
-da: {  }
+da:
+  AdvancedWorkflowAdmin:
+    Title: Titel
+  AllowEditing:
+    NoString: Nej
+  AssignUsersToWorkflowAction:
+    GROUPS: Grupper
+  Symbiote\AdvancedWorkflow\Actions\AssignUsersToWorkflowAction:
+    many_many_Groups: Grupper
+  Symbiote\AdvancedWorkflow\DataObjects\ImportedWorkflowTemplate:
+    db_Content: Indhold
+    db_Filename: Filnavn
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowAction:
+    db_Title: Titel
+    db_Type: Type
+    has_one_Member: Bruger
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowActionInstance:
+    has_one_Member: Bruger
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowDefinition:
+    db_Description: Beskrivelse
+    db_Title: Titel
+    many_many_Groups: Grupper
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowInstance:
+    db_Title: Titel
+    many_many_Groups: Grupper
+  Symbiote\AdvancedWorkflow\DataObjects\WorkflowTransition:
+    db_Title: Titel
+    db_Type: Type
+    many_many_Groups: Grupper
+  WorkflowAction:
+    Author: Forfatter
+    TITLE: Titel
+    TypeLabel: Type
+  WorkflowActionInstance:
+    Title: Titel
+  WorkflowDefinition:
+    DESCRIPTION: Beskrivelse
+    TITLE: Titel
+  WorkflowField:
+    CreateLabel: Opret
+    DeleteAction: Slet
+    EditAction: Rediger
+  WorkflowInstance:
+    TitleLabel: Titel
+  WorkflowReminderEmail:
+    HeadingTitle: Titel
+  WorkflowReminderTask:
+    SAVE: Gem
+  WorkflowTransition:
+    TYPE: Type

@@ -75,6 +75,9 @@ eo:
       one: 'Unu asigno uzantojn al laborflua ago'
       other: '{count} asignoj uzantojn al laborfluaj agoj'
     SINGULARNAME: 'Asigni uzantojn al laborflua ago'
+    db_AssignInitiator: 'Agordi iniciatanton'
+    many_many_Groups: Grupoj
+    many_many_Users: Uzuloj
   Symbiote\AdvancedWorkflow\Actions\CancelWorkflowAction:
     PLURALNAME: 'Nuligi laborfluajn agojn'
     PLURALS:
@@ -87,6 +90,9 @@ eo:
       one: 'Unu sciigo uzulan laborfluan agon'
       other: '{count} sciigoj uzulajn laborfluajn agojn'
     SINGULARNAME: 'Sciigi uzulan laborfluan agon'
+    db_EmailFrom: 'Retpoŝto el'
+    db_EmailSubject: 'Temo de retpoŝto'
+    db_EmailTemplate: 'Retpoŝta ŝablono'
   Symbiote\AdvancedWorkflow\Actions\PublishItemWorkflowAction:
     ALLOWEMBARGOEDEDITING: 'Ĉu ebligi redaktadon dum ero estas embargita? (ne validas sen embargo)'
     PLURALNAME: 'Publikigi elementajn laborfluajn agojn'
@@ -95,12 +101,16 @@ eo:
       other: '{count} publikigoj elementajn laborfluajn agojn'
     PublicationDelayDescription: 'Prokrasti publikigon laŭ la agordita nombro da tagoj'
     SINGULARNAME: 'Publikigi elementan laborfluan agon'
+    db_AllowEmbargoedEditing: 'Permesi embargitan redaktadon'
+    db_PublishDelay: 'Prokrasti publikigon'
   Symbiote\AdvancedWorkflow\Actions\SetPropertyWorkflowAction:
     PLURALNAME: 'Agordi laborfluajn agojn'
     PLURALS:
       one: 'Unu agordo laborfluan agon'
       other: '{count} agordoj laborfluajn agojn'
     SINGULARNAME: 'Agordi laborfluan agon'
+    db_Property: Atributo
+    db_Value: Valoro
   Symbiote\AdvancedWorkflow\Actions\SimpleApprovalWorkflowAction:
     PLURALNAME: 'Simple aprobi laborfluajn agojn'
     PLURALS:
@@ -113,6 +123,7 @@ eo:
       one: 'Unu malpublikigo elementan laborfluan agon'
       other: '{count} malpublikigoj elementajn laborfluajn agojn'
     SINGULARNAME: 'Malpublikigi elementan laborfluan agon'
+    db_UnpublishDelay: 'Prokrasti malpublikigon'
   Symbiote\AdvancedWorkflow\Admin\AdvancedWorkflowAdmin:
     MENUTITLE: Laborfluoj
   Symbiote\AdvancedWorkflow\DataObjects\ImportedWorkflowTemplate:
@@ -121,18 +132,37 @@ eo:
       one: 'Unu importita laborflua ŝablono'
       other: '{count} importitaj laborfluaj ŝablonoj'
     SINGULARNAME: 'Importita laborflua ŝablono'
+    db_Content: Enhavo
+    db_Filename: Dosiernomo
+    db_Name: Nomo
+    has_one_Definition: Difino
   Symbiote\AdvancedWorkflow\DataObjects\WorkflowAction:
     PLURALNAME: 'Laborfluaj agoj'
     PLURALS:
       one: 'Unu laborflua ago'
       other: '{count} laborfluaj agoj'
     SINGULARNAME: 'Laborflua ago'
+    db_AllowCommenting: 'Permesi komenti?'
+    db_AllowEditing: 'Permesi redakti'
+    db_Comment: Komento
+    db_Executed: Plenumis
+    db_Sort: Ordigi
+    db_Title: Titolo
+    db_Type: Tipo
+    has_many_Transitions: Transiroj
+    has_one_Member: Membro
+    has_one_WorkflowDef: 'Laborflua difino'
   Symbiote\AdvancedWorkflow\DataObjects\WorkflowActionInstance:
     PLURALNAME: 'Ekzemploj de laborfluaj agoj '
     PLURALS:
       one: 'Unu ekzemplo de laborflua ago'
       other: '{count} ekzemploj de laborfluaj agoj '
     SINGULARNAME: 'Ekzemplo de laborflua ago'
+    db_Comment: Komento
+    db_Finished: Finis
+    has_one_BaseAction: 'Baza ago'
+    has_one_Member: Membro
+    has_one_Workflow: Laborfluo
   Symbiote\AdvancedWorkflow\DataObjects\WorkflowDefinition:
     PLURALNAME: 'Laborfluaj difinoj'
     PLURALS:
@@ -140,18 +170,57 @@ eo:
       other: '{count} laborfluaj agoj'
     ReminderEmailDescription: 'Sendi retpoŝtan memorigon post la agordita nombro da tagoj sen ago'
     SINGULARNAME: 'Laborflua difino'
+    db_Description: Priskribo
+    db_InitialActionButtonText: 'Teksto de ekaga teksto'
+    db_RemindDays: 'Memorigi post tagoj'
+    db_Sort: Ordigi
+    db_Template: Ŝablono
+    db_TemplateVersion: 'Ŝablona versio'
+    db_Title: Titolo
+    has_many_Actions: Agoj
+    has_many_Instances: Aperoj
+    many_many_Groups: Grupoj
+    many_many_Users: Uzuloj
   Symbiote\AdvancedWorkflow\DataObjects\WorkflowInstance:
     PLURALNAME: 'Laborfluaj ekzemploj'
     PLURALS:
       one: 'Unu ekzemplo de laborfluo'
       other: '{count} ekzemploj de laborfluoj'
     SINGULARNAME: 'Laborflua ekzemplo'
+    db_TargetClass: 'Cela klaso'
+    db_TargetID: 'Cela ID'
+    db_Title: Titolo
+    db_WorkflowStatus: 'Laborflua stato'
+    has_many_Actions: Agoj
+    has_one_CurrentAction: 'Aktuala ago'
+    has_one_Definition: Difino
+    has_one_Initiator: Inicianto
+    many_many_Groups: Grupoj
+    many_many_Users: Uzuloj
   Symbiote\AdvancedWorkflow\DataObjects\WorkflowTransition:
     PLURALNAME: 'Laborfluaj transiroj'
     PLURALS:
       one: 'Unu laborflua transiro'
       other: '{count} laborfluaj transiroj'
     SINGULARNAME: 'Laborflua transiro'
+    db_Sort: Ordigi
+    db_Title: Titolo
+    db_Type: Tipo
+    has_one_Action: Ago
+    has_one_NextAction: 'Sekva ago'
+    many_many_Groups: Grupoj
+    many_many_Users: Uzuloj
+  Symbiote\AdvancedWorkflow\Extensions\WorkflowApplicable:
+    has_one_WorkflowDefinition: 'Laborflua difino'
+    many_many_AdditionalWorkflowDefinitions: 'Kromaj laborfluoj'
+  Symbiote\AdvancedWorkflow\Extensions\WorkflowEmbargoExpiryExtension:
+    db_AllowEmbargoedEditing: 'Permesi embargitan redaktadon'
+    db_DesiredPublishDate: 'Dezirata publikiga dato'
+    db_DesiredUnPublishDate: 'Dezirata malpublikiga dato'
+    db_PublishOnDate: 'Publikigi je dato'
+    db_UnPublishOnDate: 'Malpublikigi je dato'
+    has_one_PublishJob: 'Publikigi taskon'
+    has_one_UnPublishJob: 'Malpublikigi taskon'
   Symbiote\AdvancedWorkflow\Forms\GridField\GridFieldExportAction:
     Export: Eksporti
   UnpublishItemWorkflowAction:
