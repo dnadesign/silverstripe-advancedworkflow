@@ -44,7 +44,8 @@ class Page_CancelActiveWorkflowExtension extends DataExtension
 
         Requirements::javascript('symbiote/silverstripe-advancedworkflow:client/dist/js/CancelButton.js');
         $action = FormAction::create('cancelworkflow', 'Cancel Workflow')
-            ->setUseButtonTag(true)->setAttribute('data-icon', 'navigation');
+            ->setUseButtonTag(true)
+            ->addExtraClass('font-icon-cancel');
 
         if ($actions->fieldByName('MajorActions')) {
             $actions->fieldByName('MajorActions')->push($action);
