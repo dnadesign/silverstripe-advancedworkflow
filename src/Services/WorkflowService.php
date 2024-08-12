@@ -7,6 +7,7 @@ use SilverStripe\Core\Convert;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\SS_List;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\PermissionProvider;
@@ -329,12 +330,12 @@ class WorkflowService implements PermissionProvider
     /**
      * Get items that the passed-in user has awaiting for them to action
      *
-     * @param Member $member
-     * @return DataList
+     * @return SS_List<WorkflowInstance>
      */
-    public function userPendingItems(Member $user)
+    public function userPendingItems(Member $user): SS_List
     {
         // Don't restrict anything for ADMIN users
+        /** @var DataList<WorkflowInstance> */
         $userInstances = DataList::create(WorkflowInstance::class)
             ->where('"WorkflowStatus" != \'Complete\'')
             ->sort('LastEdited DESC');
@@ -342,7 +343,10 @@ class WorkflowService implements PermissionProvider
         if (Permission::checkMember($user, 'ADMIN')) {
             return $userInstances;
         }
+
+        /** @var ArrayList<WorkflowInstance> */
         $instances = new ArrayList();
+
         foreach ($userInstances as $inst) {
             $instToArray = $inst->getAssignedMembers();
             if (!count($instToArray ?? [])>0 || !in_array($user->ID, $instToArray->column() ?? [])) {
@@ -357,11 +361,11 @@ class WorkflowService implements PermissionProvider
     /**
      * Get items that the passed-in user has submitted for workflow review
      *
-     * @param Member $member
-     * @return DataList
+     * @return SS_List<WorkflowInstance> 
      */
-    public function userSubmittedItems(Member $user)
+    public function userSubmittedItems(Member $user): SS_List
     {
+        /** @var DataList<WorkflowInstance> */
         $userInstances = DataList::create(WorkflowInstance::class)
             ->where('"WorkflowStatus" != \'Complete\'')
             ->sort('LastEdited DESC');
