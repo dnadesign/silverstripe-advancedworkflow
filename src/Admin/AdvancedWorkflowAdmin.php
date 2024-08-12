@@ -212,10 +212,10 @@ class AdvancedWorkflowAdmin extends ModelAdmin
     /**
      * Return content-object data depending on which gridfeld is calling for it
      *
-     * @return DataList<WorkflowInstance>
+     * @return DataList<WorkflowInstance>|null
      * @throws InvalidArgumentException
      */
-    public function getFieldDependentData(Member $user, string $fieldName): DataList
+    public function getFieldDependentData(Member $user, string $fieldName): ?DataList
     {
         $list = null;
 
@@ -248,6 +248,10 @@ class AdvancedWorkflowAdmin extends ModelAdmin
 
             return true;
         });
+
+        if ($list->count() === 0) {
+            return null;
+        }
 
         // Return a DataList with the filtered ids
         return WorkflowInstance::get()->filter([
@@ -385,6 +389,10 @@ class AdvancedWorkflowAdmin extends ModelAdmin
     {
         $pending = $this->getFieldDependentData(Security::getCurrentUser(), 'PendingObjects');
 
+        if (!$pending instanceof DataList) {
+            return null;
+        }
+
         if ($pending->count() === 0) {
             return null;
         }
@@ -420,6 +428,10 @@ class AdvancedWorkflowAdmin extends ModelAdmin
     {
         $submitted = $this->getFieldDependentData(Security::getCurrentUser(), 'SubmittedObjects');
 
+        if (!$submitted instanceof DataList) {
+            return null;
+        }
+    
         if ($submitted->count() === 0) {
             return null;
         }
