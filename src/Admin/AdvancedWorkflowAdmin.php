@@ -20,6 +20,8 @@ use SilverStripe\Forms\GridField\GridFieldPaginator;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\Filterable;
+use SilverStripe\ORM\SS_List;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
@@ -180,7 +182,7 @@ class AdvancedWorkflowAdmin extends ModelAdmin
         $list = null;
 
         if ($fieldName === 'PendingObjects') {
-            $list =  $this->getWorkflowService()->userPendingItems($user);
+            $list = $this->getWorkflowService()->userPendingItems($user);
         }
 
         if ($fieldName === 'SubmittedObjects') {
@@ -188,7 +190,7 @@ class AdvancedWorkflowAdmin extends ModelAdmin
         }
 
         // If the list is null, then the user has entered a bad input
-        if (!$list instanceof DataList && !$list instanceof ArrayList) {
+        if (!$list instanceof Filterable) {
             throw new InvalidArgumentException('$fieldName must be one of ("PendingObjects", "SubmittedObjects")');
         }
 
