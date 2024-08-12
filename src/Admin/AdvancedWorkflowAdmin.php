@@ -4,7 +4,6 @@ namespace Symbiote\AdvancedWorkflow\Admin;
 
 use InvalidArgumentException;
 use SilverStripe\Admin\ModelAdmin;
-use SilverStripe\CMS\Controllers\CMSPageEditController;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Forms\FieldList;
@@ -111,8 +110,13 @@ class AdvancedWorkflowAdmin extends ModelAdmin
         $config->addComponent(GridFieldEditButton::create());
         $config->addComponent(GridFieldDetailForm::create());
         $config->getComponentByType(GridFieldPaginator::class)->setItemsPerPage(5);
+        
         $columns = $config->getComponentByType(GridFieldDataColumns::class);
-        $columns->setFieldFormatting($this->setFieldFormatting($config));
+
+        if ($columns instanceof GridFieldDataColumns) {
+            $columns->setDisplayFields($this->getItemDisplayFields())
+                ->setFieldFormatting($this->getItemFieldFormatting());
+        }
 
         // Show items submitted into a workflow for current user to action
         $pending = $this->getPendingItems($config);
@@ -163,50 +167,6 @@ class AdvancedWorkflowAdmin extends ModelAdmin
             return true;
         }
         return false;
-    }
-
-    /*
-     * By default, we implement GridField_ColumnProvider to allow users to click through to the PagesAdmin.
-     * We would also like a "Quick View", that allows users to quickly make a decision on a given workflow-bound
-     * content-object
-     */
-    public function columns()
-    {
-        $fields = array(
-            'Title' => array(
-                'link' => function ($value, $item) {
-                    $pageAdminLink = singleton(CMSPageEditController::class)->Link('show');
-                    return sprintf('<a href="%s/%s">%s</a>', $pageAdminLink, $item->Link, $value);
-                }
-            ),
-            'WorkflowStatus' => array(
-                'text' => function ($value, $item) {
-                    return $item->WorkflowCurrentAction;
-                }
-            )
-        );
-        return $fields;
-    }
-
-    /*
-     * Discreet method used by both intro gridfields to format the target object's links and clickable text
-     *
-     * @param GridFieldConfig $config
-     * @return array $fieldFormatting
-     */
-    public function setFieldFormatting(&$config)
-    {
-        $fieldFormatting = array();
-        // Parse the column information
-        foreach ($this->columns() as $source => $info) {
-            if (isset($info['link']) && $info['link']) {
-                $fieldFormatting[$source] = '<a href=\"$ObjectRecordLink\">$value</a>';
-            }
-            if (isset($info['text']) && $info['text']) {
-                $fieldFormatting[$source] = $info['text'];
-            }
-        }
-        return $fieldFormatting;
     }
 
     /**
@@ -330,7 +290,7 @@ class AdvancedWorkflowAdmin extends ModelAdmin
      */
     private function getItemDisplayFields(): array
     {
-        if ($this->config()->get('fieldOverrides')) {
+        if ($this->config()->get('fieldOverrides') !== []) {
             return $this->config()->get('fieldOverrides');
         }
 
@@ -343,6 +303,10 @@ class AdvancedWorkflowAdmin extends ModelAdmin
     }
 
     /**
+     * By default, we implement GridField_ColumnProvider to allow users to click through to the PagesAdmin.
+     * We would also like a "Quick View", that allows users to quickly make a decision on a given workflow-bound
+     * content-object
+     *
      * @return string[]
      */
     private function getItemFieldFormatting(): array
@@ -355,7 +319,11 @@ class AdvancedWorkflowAdmin extends ModelAdmin
                     return $value;
                 }
 
-                return $target->Title;
+                if (!$target->hasMethod('CMSEditLink')) {
+                    return $value;
+                }
+
+                return sprintf('<a href="%s">%s</a>', $target->CMSEditLink(), $target->Title);
             },
             'LastEdited' => static function (string $value, WorkflowInstance $instance): string {
                 $target = $instance->getTarget();
@@ -412,15 +380,6 @@ class AdvancedWorkflowAdmin extends ModelAdmin
             $config
         );
 
-        $dataColumns = $gridField->getConfig()->getComponentByType(GridFieldDataColumns::class);
-
-        if (!$dataColumns instanceof GridFieldDataColumns) {
-            return $gridField;
-        }
-
-        $dataColumns->setDisplayFields($this->getItemDisplayFields())
-            ->setFieldFormatting($this->getItemFieldFormatting());
-
         return $gridField;
     }
 
@@ -453,15 +412,6 @@ class AdvancedWorkflowAdmin extends ModelAdmin
 
         $gridField->getConfig()->removeComponentsByType(GridFieldEditButton::class)
             ->addComponent(GridFieldWorkflowRestrictedEditButton::create());
-
-        $dataColumns = $gridField->getConfig()->getComponentByType(GridFieldDataColumns::class);
-
-        if (!$dataColumns instanceof GridFieldDataColumns) {
-            return $gridField;
-        }
-
-        $dataColumns->setDisplayFields($this->getItemDisplayFields())
-            ->setFieldFormatting($this->getItemFieldFormatting());
 
         return $gridField;
     }
