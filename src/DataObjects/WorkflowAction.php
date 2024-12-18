@@ -12,6 +12,7 @@ use SilverStripe\Forms\TabSet;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\DB;
+use SilverStripe\ORM\HasManyList;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
@@ -21,10 +22,13 @@ use SilverStripe\Security\Security;
  * the action(s) that occur while in that state. An action can then have
  * subsequent transitions out of the current state.
  *
- * @method WorkflowDefinition WorkflowDef()
  * @author  marcus@symbiote.com.au
  * @license BSD License (http://silverstripe.org/bsd-license/)
  * @package advancedworkflow
+ *
+ * @method WorkflowDefinition WorkflowDef()
+ * @method Member Member()
+ * @method HasManyList<WorkflowTransition> Transitions()
  */
 class WorkflowAction extends DataObject
 {
@@ -199,7 +203,6 @@ class WorkflowAction extends DataObject
     {
         parent::onAfterDelete();
         $wfActionInstances = WorkflowActionInstance::get()
-            /** @skipUpgrade */
             ->leftJoin('WorkflowInstance', '"WorkflowInstance"."ID" = "WorkflowActionInstance"."WorkflowID"')
             ->where(sprintf('"BaseActionID" = %d AND ("WorkflowStatus" IN (\'Active\',\'Paused\'))', $this->ID));
         foreach ($wfActionInstances as $wfActionInstance) {

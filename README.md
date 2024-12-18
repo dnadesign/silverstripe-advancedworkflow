@@ -11,14 +11,6 @@ A module that provides an action / transition approach to workflow, where a
 single workflow process is split into multiple configurable states (Actions)
 with multiple possible transitions between the actions.
 
-## Requirements
-
- * Silverstripe Framework and CMS 3.1 or newer
- * (Optional) [Queued Jobs module](https://github.com/nyeholt/silverstripe-queuedjobs) (for embargo/expiry functionality)
-
- Note: The Silverstripe 2.4 version of the module is available from the ss24
- branch of the repository.
-
 ## Installation
 `composer require dnadesign/silverstripe-workflow`
 ```

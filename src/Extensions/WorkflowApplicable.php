@@ -19,6 +19,8 @@ use SilverStripe\Forms\TabSet;
 use SilverStripe\ORM\CMSPreviewable;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataList;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\ManyManyList;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
 use Symbiote\AdvancedWorkflow\DataObjects\WorkflowActionInstance;
@@ -35,6 +37,11 @@ use Symbiote\QueuedJobs\Services\AbstractQueuedJob;
  * @author  marcus@symbiote.com.au
  * @license BSD License (http://silverstripe.org/bsd-license/)
  * @package advancedworkflow
+ *
+ * @method WorkflowDefinition WorkflowDefinition()
+ * @method ManyManyList<WorkflowDefinition> AdditionalWorkflowDefinitions()
+ *
+ * @extends DataExtension<DataObject&static>
  */
 class WorkflowApplicable extends DataExtension
 {
@@ -242,7 +249,6 @@ class WorkflowApplicable extends DataExtension
                             // and will be displayed as a major action.
                             if (!$addedFirst) {
                                 $addedFirst = true;
-                                $action->setAttribute('data-icon', 'navigation');
                                 $majorActions = $actions->fieldByName('MajorActions');
                                 $majorActions ? $majorActions->push($action) : $actions->push($action);
                             } else {
@@ -252,7 +258,7 @@ class WorkflowApplicable extends DataExtension
                     }
                     // Only display menu if actions pushed to it
                     if ($tab->Fields()->exists()) {
-                        $menu->insertBefore($tab, 'MoreOptions');
+                        $menu->insertBefore('MoreOptions', $tab);
                     }
                 }
             }
@@ -341,7 +347,7 @@ class WorkflowApplicable extends DataExtension
     /**
      * Gets the history of a workflow instance
      *
-     * @return DataList
+     * @return DataList<WorkflowActionInstance>|void
      */
     public function getWorkflowHistory($limit = null)
     {

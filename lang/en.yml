@@ -34,7 +34,7 @@ en:
   AdvancedWorkflowFrontendForm:
     ACTIONCONTROLLERCHECK: 'Action "%s" not allowed on controller (Class: %s)'
     ACTIONFORMCHECK: 'Action "%s" not allowed on form (Name: "%s")'
-    SECURITYTOKENCHECK: 'Security token doesn''t match, possible CSRF attack.'
+    SECURITYTOKENCHECK: "Security token doesn't match, possible CSRF attack."
   AdvancedWorkflowPublishJob:
     SCHEDULEJOBTITLE: 'Scheduled {type} of {object}'
   AllowEditing:
@@ -284,8 +284,8 @@ en:
     REQUESTED_PUBLISH_DATE: 'Requested publish date'
     REQUESTED_PUBLISH_DATE_H3: 'Expiry and Embargo'
     REQUESTED_PUBLISH_DATE_INTRO: 'Enter a date and/or time to specify embargo and expiry dates.'
-    REQUESTED_PUBLISH_DATE_INTRO_BULLET_1: 'These settings won''t take effect until any approval actions are run'
-    REQUESTED_PUBLISH_DATE_INTRO_BULLET_2: 'If an embargo is already set, adding a new one prior to that date''s passing will overwrite it'
+    REQUESTED_PUBLISH_DATE_INTRO_BULLET_1: "These settings won't take effect until any approval actions are run"
+    REQUESTED_PUBLISH_DATE_INTRO_BULLET_2: "If an embargo is already set, adding a new one prior to that date's passing will overwrite it"
     REQUESTED_PUBLISH_DATE_RIGHT_TITLE: 'To request this page to be <strong>published immediately</strong> leave the date and time fields blank'
     REQUESTED_UNPUBLISH_DATE: 'Requested un-publish date'
     REQUESTED_UNPUBLISH_DATE_RIGHT_TITLE: 'To request this page to <strong>never expire</strong> leave the date and time fields blank'
